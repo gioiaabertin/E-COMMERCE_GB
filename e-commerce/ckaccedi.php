@@ -15,7 +15,7 @@ $stmt->execute();
 //$stmt->store_result();
 $result =$stmt->get_result();
 if ($result->num_rows == 1/* && $msg == ""*/) {
-    $_SESSION["this_u"] = $_POST["this_user"];
+    $_SESSION["u"] =;
  //   $row = $result->fetch_assoc(); //non esisteva $row, perche' in realta' la creavi tu dentro l'if, va creata cosi' o con un while nel caso di piu' record
  
 } else

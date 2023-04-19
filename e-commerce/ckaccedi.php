@@ -15,16 +15,12 @@ $stmt->execute();
 //$stmt->store_result();
 $result =$stmt->get_result();
 if ($result->num_rows == 1/* && $msg == ""*/) {
-    $_SESSION["u"] =;
- //   $row = $result->fetch_assoc(); //non esisteva $row, perche' in realta' la creavi tu dentro l'if, va creata cosi' o con un while nel caso di piu' record
- 
+    $_SESSION["uID"] = $row["id"];
+
 } else
     $msg = "login errato";
 
-if ($msg != "") {
-    $_SESSION["autorizzato"]=true;
-    header("location: index.php?msg=" . $msg);
-}
+
+    header("location: shop.php?msg=" . $msg);
+
 ?>
-<!--non va chiusa la connesssione
-$conn->close();-->

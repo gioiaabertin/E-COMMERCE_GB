@@ -17,7 +17,7 @@ class DatabaseClassSingleton
     private  $dbhost = "localhost";
     private  $username = "root";
     private  $password = "";
-    private  $dbname = "5a_ecommerce";
+    private  $dbname = "e-commercegb";
 
 
     /*

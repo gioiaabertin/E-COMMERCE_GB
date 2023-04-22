@@ -8,22 +8,22 @@ function writeLog($msg)
 }
 
 class DatabaseClassSingleton
-{ 
+{
     //https://gist.github.com/jonashansen229/4534794
     //https://devjunky.com/Creating-a-MySqli-Database-Class-in-PHP/
-    
+
     private $_connection;
     private static $_instance; //The single instance
-    private  $dbhost = "localhost";
-    private  $username = "root";
-    private  $password = "";
-    private  $dbname = "e-commercegb";
+    private $dbhost = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $dbname = "e-commercegb";
 
 
     /*
-	Get an instance of the Database
-	@return Instance
-	*/
+    Get an instance of the Database
+    @return Instance
+    */
     public static function getInstance()
     {
         if (!self::$_instance) { // If no instance then make one
@@ -36,7 +36,7 @@ class DatabaseClassSingleton
     private function __construct()
     {
         try {
-            $this->_connection = new mysqli($this->dbhost, $this->username,  $this->password, $this->dbname);
+            $this->_connection = new mysqli($this->dbhost, $this->username, $this->password, $this->dbname);
             echo "<b>Connection created!</br></b>";
             writeLog("Connection created");
             // Error handling
@@ -148,13 +148,13 @@ class DatabaseClassSingleton
 }
 
 //$db = new DatabaseClassSingleton("5a_ecommerce","5a_ecommerce", "root","");
-$result = DatabaseClassSingleton::getInstance()->Select("Select * from articoli");
-$result = DatabaseClassSingleton::getInstance()->Select("Select * from articoli");
-$result = DatabaseClassSingleton::getInstance()->Select("Select * from articoli");
+$result = DatabaseClassSingleton::getInstance()->Select("Select * from prodotti");
+$result = DatabaseClassSingleton::getInstance()->Select("Select * from prodotti");
+$result = DatabaseClassSingleton::getInstance()->Select("Select * from prodotti");
 
 
 //$result = $db->Select("Select * from TableName where id = ?",["i",$x]);
 
 foreach ($result as $row) {
-    echo $row["ID"] .  $row["nome"]  . $row["prezzo"] . "</br>";
+    echo $row["id"] . $row["nome"] . $row["prezzo"] . "</br>";
 }

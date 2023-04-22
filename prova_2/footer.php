@@ -1,3 +1,5 @@
+<?php 
+include 'DatabaseClassSingleton.php'?>
 <!DOCTYPE php>
 <php lang="en">
 
@@ -34,7 +36,7 @@
                         <ul class="list-unstyled text-light footer-link-list">
                             <li>
                                 <i class="fas fa-map-marker-alt fa-fw"></i>
-                                123 Consectetur at ligula 10660
+                                123 Lurago City at JoyCity 10660
                             </li>
                             <li>
                                 <i class="fa fa-phone fa-fw"></i>
@@ -42,7 +44,7 @@
                             </li>
                             <li>
                                 <i class="fa fa-envelope fa-fw"></i>
-                                <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                                <a class="text-decoration-none" href="mailto:info@company.com">joy@shop.com</a>
                             </li>
                         </ul>
                     </div>
@@ -50,13 +52,12 @@
                     <div class="col-md-4 pt-5">
                         <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                         <ul class="list-unstyled text-light footer-link-list">
-                            <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                            <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                            <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                            <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                            <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                            <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                            <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+
+                            <?php 
+                            $result=DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
+                            foreach ($result as $row) {
+                                echo '<li><a class="text-decoration-none" href="shop.php">'. $row["nome"] .'</a></li>';}
+                                ?>
                         </ul>
                     </div>
 
@@ -64,10 +65,7 @@
                         <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
                         <ul class="list-unstyled text-light footer-link-list">
                             <li><a class="text-decoration-none" href="#">Home</a></li>
-                            <li><a class="text-decoration-none" href="#">About Us</a></li>
-                            <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                            <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                            <li><a class="text-decoration-none" href="#">Contact</a></li>
+
                         </ul>
                     </div>
 

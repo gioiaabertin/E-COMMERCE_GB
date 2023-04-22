@@ -270,7 +270,7 @@ include 'DatabaseClassSingleton.php';
                                 </div>
                             </div>
                             <!--End Carousel Wrapper-->
-                            <?php include 'footer.php' ?>
+
                             <!--Controls-->
                             <div class="col-1 align-self-center">
                                 <a class="h1" href="#multi-item-example" role="button" data-bs-slide="next">
@@ -282,18 +282,19 @@ include 'DatabaseClassSingleton.php';
                     </div>
                 </div>
             </div>
-        </section>
-        <!--End Brands-->
+    </div>
+    </section>
+    <!--End Brands-->
 
+    <?php include 'footer.php' ?>
 
-
-        <!-- Start Script -->
-        <script src="assets/js/jquery-1.11.0.min.js"></script>
-        <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/js/templatemo.js"></script>
-        <script src="assets/js/custom.js"></script>
-        <!-- End Script -->
+    <!-- Start Script -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <!-- End Script -->
 </body>
 
 </html>

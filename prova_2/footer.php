@@ -1,5 +1,5 @@
 <?php 
-include 'DatabaseClassSingleton.php'?>
+include_once 'DatabaseClassSingleton.php'?>
 <!DOCTYPE php>
 <php lang="en">
 
@@ -57,7 +57,7 @@ include 'DatabaseClassSingleton.php'?>
                             $result=DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
                             foreach ($result as $row) {
                                 echo '<li><a class="text-decoration-none" href="shop.php">'. $row["nome"] .'</a></li>';}
-                                ?>
+                            ?>
                         </ul>
                     </div>
 

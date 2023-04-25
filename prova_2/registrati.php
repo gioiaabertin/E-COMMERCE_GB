@@ -1,3 +1,8 @@
+<?php include 'header.php';
+
+include 'DatabaseClassSingleton.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,38 +11,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/f.css">
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 </head>
 
 <body>
+    <div>
+        <form action="ckreg.php" method="post">
+            <h1>Registrati</h1>
+            <br>
+            <p>nome: </p>
+            <input type="text" name="this_nome">
+            <p>cognome: </p>
+            <input type="text" name="this_cognome">
+            <p>user: </p>
+            <input type="text" name="this_user">
+            <p>mail: </p>
+            <input type="mail" name="this_mail">
+            <p>cellulare: </p>
+            <input type="text" name="this_cell">
+            <p>password: </p>
+            <input type="password" name="this_pw">
+            <br>
+            <p>ripeti password: </p>
+            <input type="password" name="this_pw2">
+            <br>
+            <p>numero carta: </p>
+            <input type="text" name="this_ncarta">
+            <p>scadenza carta: </p>
+            <input type="datetime-local" name="this_scad">
 
-    <form action="ckreg.php" method="post">
-        <h1>registrati</h1>
-        <br>
-        <p>nome: </p>
-        <input type="text" name="this_nome"><br>
-        <p>cognome: </p>
-        <input type="text" name="this_cognome"><br>
-        <p>user: </p>
-        <input type="text" name="this_user"><br>
-        <p>mail: </p>
-        <input type="mail" name="this_mail"><br>
-        <p>cellulare: </p>
-        <input type="text" name="this_cell"><br>
-         <p>password: </p>
-        <input type="password" name="this_pw">
-        <br>
-        <p>ripeti password: </p>
-        <input type="password" name="this_pw2">
-        <br>
-        <p>numero carta: </p>
-        <input type="text" name="this_ncarta"><br>
-        <p>scadenza carta: </p>
-        <input type="text" name="this_scad"><br>
-        
-        <input type="submit" value="registrati">
-    </form>
-
-
+            <input type="submit" value="registrati">
+        </form>
+    </div>
+    <div><?php include 'footer.php' ?> </div>
 </body>
 
 </html>

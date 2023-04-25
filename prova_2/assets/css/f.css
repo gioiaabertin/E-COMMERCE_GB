@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 400px; /* la larghezza massima del form */
+  margin: 0 auto; /* per centrare il form orizzontalmente */
+  padding: 20px; /* margine interno per una migliore leggibilità */
+}

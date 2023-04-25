@@ -7,6 +7,8 @@ function writeLog($msg)
     fclose($file);
 }
 
+
+
 class DatabaseClassSingleton
 {
     //https://gist.github.com/jonashansen229/4534794
@@ -144,6 +146,23 @@ class DatabaseClassSingleton
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+    }
+
+    private function VerificaConn()
+    {
+        // Verifica la connessione
+        if (!$this->_connection) {
+            die("Connessione al database fallita: " . mysqli_connect_error());
+        }
+
+        // Inizializza la variabile $stmt
+        $stmt = mysqli_prepare($this->_connection, "SELECT * FROM my_table WHERE id = ?");
+
+        // Verifica se la preparazione della query è andata a buon fine
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . mysqli_error($this->_connection));
+        }
+        else return $stmt;
     }
 }
 

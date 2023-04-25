@@ -1,4 +1,5 @@
-<?php  session_start(); ?>
+<?php  session_start(); 
+include_once 'DatabaseClassSingleton.php'?>
 <!DOCTYPE php>
 <php lang="en">
 
@@ -26,6 +27,8 @@
 
     <body>
         <!-- Start Top Nav -->
+
+
         <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
             <div class="container text-light">
                 <div class="w-100 d-flex justify-content-between">
@@ -74,16 +77,17 @@
                             <li><a class="text-decoration-none" href="index.php">Home</a></li>
                             <li><a class="text-decoration-none" href="shop.php">Prodotti</a></li>
                             <li><a class="text-decoration-none" href="mostra-carrello.php">Carello</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Categorie
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
+                            <li class="nav-item dropdown"><select>
+                                    <option value="shop.php?msg='-'" selected>Categorie</option>
+                                    <?php
+                                $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
+                                foreach ($result as $row) {
+                                    echo ' <option value="shop.php?msg='. $row["nome"] .'">'. $row["nome"] . '</option>';
+                                }
+                                ?>
 
-                                </div>
-                            </li>
+                                </select></li>
+
                             <li><a class="text-decoration-none" href="contatti.php">Contatti</a></li>
                         </ul>
                     </div>

@@ -117,14 +117,14 @@ include_once 'DatabaseClassSingleton.php';
                 </div>
 
                 <?php
-                $_SESSION['prodotti'] = array();
+                $prodotti = array();
                 $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM prodotti');
                 foreach ($result as $row) {
                     echo $row['nome'].'<br>';
-                    $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantManc'],$row['idCateg'],$row['prezzo'],$row['foto']);
+                    $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['foto']);
                     array_push($prodotti,$p);
                 }
-                  
+                   $_SESSION['prodotti'] = $prodotti;
                 ?>
                 <div class="row">
                     <div class="col-md-4">
@@ -146,9 +146,9 @@ include_once 'DatabaseClassSingleton.php';
                             <div class="card-body">
 
                                 <a href="shop-single.php"
-                                    class="h3 text-decoration-none"><?php $prodotti[$i]->descrizione; ?></a>
+                                    class="h3 text-decoration-none"><?php $prodotti=$_SESSION['prodotti'];$prodotti[0]->descrizione; ?></a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li><?php $prodotti[$i]->taglie; ?></li>
+                                    <li><?php $prodotti[0]->taglie; ?></li>
                                     <li class="pt-2">
                                         <?php
                                         $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?',["i",$idtemp]);

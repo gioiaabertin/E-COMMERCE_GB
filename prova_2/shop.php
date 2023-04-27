@@ -162,9 +162,11 @@ include_once 'DatabaseClassSingleton.php';
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                                     <li><?php $prodotti = $_SESSION['prodotti'];
                                     $idtemp = $prodotti[0]->getId();
-                                    $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?', ["i", $idtemp]);
-                                    for ($i = 0; $i = $results[3]; $i++) {
-                                        echo ' <i class="text-warning fa fa-star"></i>'; }
+                                    
+                                    $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?', ["i",$idtemp]);
+                                    for ($i = 0; $i = $result[0]; $i++) {
+                                        echo ' <i class="text-warning fa fa-star"></i>' . $result[0];}
+                                       
                                     ?>
                                     </li>
 

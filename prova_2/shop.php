@@ -121,7 +121,7 @@ include_once 'DatabaseClassSingleton.php';
                 $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM prodotti');
                 foreach ($result as $row) {
                     echo $row['nome'].'<br>';
-                    $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['foto']);
+                    $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['foto'],$row['taglie']);
                     array_push($prodotti,$p);
                 }
                    $_SESSION['prodotti'] = $prodotti;
@@ -145,28 +145,32 @@ include_once 'DatabaseClassSingleton.php';
                             </div>
                             <div class="card-body">
 
-                                <a href="shop-single.php"
-                                    class="h3 text-decoration-none"><?php $prodotti=$_SESSION['prodotti'];$prodotti[0]->descrizione; ?></a>
+
+                                <?php $prodotti=$_SESSION['prodotti'];
+                                   echo "<a href='shop-single.php' class='h3 text-decoration-none'>".$prodotti[0]->getDescr() ."</a>"?>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li><?php $prodotti[0]->taglie; ?></li>
+                                    <?php echo "<li>". $prodotti[0]->getTaglie() ."</li>" ?>
                                     <li class="pt-2">
-                                        <?php
-                                        $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?',["i",$idtemp]);
+                                        <?php $prodotti = $_SESSION['prodotti'];
+                                        $idtemp=$prodotti[0]->getId();
+                                        $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?',["i", $idtemp]);
                                         for ($i = 0; $i = $results[3]; $i++) {
                                             echo '<span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>';
                                         }
                                         ?> </li>
                                 </ul>
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
+                                    <li><?php $prodotti = $_SESSION['prodotti'];
+                                    $idtemp = $prodotti[0]->getId();
+                                    $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?', ["i", $idtemp]);
+                                    for ($i = 0; $i = $results[3]; $i++) {
+                                        echo ' <i class="text-warning fa fa-star"></i>'; }
+                                    ?>
                                     </li>
+
                                 </ul>
-                                <p class="text-center mb-0">$price</p>
+
+                                <?php echo " <p class='text-center mb-0'>".$prodotti[0]->getPrezzo().'</p>' ?>
                             </div>
                         </div>
                     </div>

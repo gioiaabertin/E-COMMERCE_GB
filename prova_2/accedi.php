@@ -1,6 +1,6 @@
-<?php include 'header.php';
+<?php include_once 'header.php';
 
-include 'DatabaseClassSingleton.php';
+include_once 'DatabaseClassSingleton.php';
 
 ?>
 <!DOCTYPE html>

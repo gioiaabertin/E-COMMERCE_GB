@@ -1,6 +1,6 @@
-<?php include 'header.php';
+<?php include_once 'header.php';
 
-include 'DatabaseClassSingleton.php';
+include_once 'DatabaseClassSingleton.php';
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,8 @@ include 'DatabaseClassSingleton.php';
             <p>numero carta: </p>
             <input type="text" name="this_ncarta">
             <p>scadenza carta: </p>
-            <input type="datetime-local" name="this_scad">
+            <input type="date" name="this_scad" value="2023-04-30" min="2023-04-30" max="2029-12-31">
+
 
             <input type="submit" value="registrati">
         </form>

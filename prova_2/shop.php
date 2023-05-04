@@ -2,6 +2,7 @@
 include 'header.php';
 include 'CProduct.php';
 include_once 'DatabaseClassSingleton.php';
+include_once 'cksessio.php';
 
 
 ?>
@@ -125,8 +126,12 @@ include_once 'DatabaseClassSingleton.php';
                     array_push($prodotti,$p);
                 }
                    $_SESSION['prodotti'] = $prodotti;
-                ?>
-                <div class="row">
+                ?> <div class="row">
+                    <?php
+                                 $prodotti=$_SESSION['prodotti'];
+                                 
+                                 for( $i=0;$i<count($prodotti);$i++){
+               echo'
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
@@ -134,53 +139,49 @@ include_once 'DatabaseClassSingleton.php';
                                 <div
                                     class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="cuori.php"><i
+                                        <li><a class="btn btn-success text-white" href="cuori.php?id=' . $prodotti[$i]->getId() . '"><i
                                                     class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.php"><i
+                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.php?id=' .$prodotti[$i]->getId(). '"><i
                                                     class="far fa-eye"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="aggPinC.php"><i
+                                        <li><a class="btn btn-success text-white mt-2" href="aggPinC.php?id=' . $prodotti[$i]->getId() . '"><i
                                                     class="fas fa-cart-plus"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body">';
 
+                             
+                                   echo "<a href='shop-single.php' class='h3 text-decoration-none'>".$prodotti[$i]->getNome() ."</a>";
+                                   echo '<ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                   <li>'. $prodotti[$i]->getTaglie() .'</li><li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                    </ul>
+                    <ul class="list-unstyled d-flex justify-content-center mb-1" <li> ';
+                        $idtemp = $prodotti[$i]->getId();
+                        
+                        $result =
+                        DatabaseClassSingleton::getInstance()->Select('SELECT AVG(stelle) as media_stelle FROM
+                        commenti where idProd=?', ["i",&$idtemp]);
+                        foreach($result as $row) {
+                        $nstelle= $row["media_stelle"];
+                        for ($j = 0; $j < $nstelle; $j++) { echo ' <i class="text-warning fa fa-star"></i>' ;}}
+                            echo '</li></ul>' ; echo " <p class=' text-center mb-0'>" .$prodotti[$i]->
+                            getPrezzo().'$</p>
+                </div>
+            </div>
 
-                                <?php $prodotti=$_SESSION['prodotti'];
-                                   echo "<a href='shop-single.php' class='h3 text-decoration-none'>".$prodotti[0]->getDescr() ."</a>"?>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <?php echo "<li>". $prodotti[0]->getTaglie() ."</li>" ?>
-                                    <li class="pt-2">
-                                        <?php $prodotti = $_SESSION['prodotti'];
-                                        $idtemp=$prodotti[0]->getId();
-                                        $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?',["i", $idtemp]);
-                                        for ($i = 0; $i = $results[3]; $i++) {
-                                            echo '<span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>';
-                                        }
-                                        ?> </li>
-                                </ul>
-                                <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                    <li><?php $prodotti = $_SESSION['prodotti'];
-                                    $idtemp = $prodotti[0]->getId();
-                                    
-                                    $result = DatabaseClassSingleton::getInstance()->Select('SELECT stelle FROM commenti where idProd=?', ["i",$idtemp]);
-                                    for ($i = 0; $i = $result[0]; $i++) {
-                                        echo ' <i class="text-warning fa fa-star"></i>' . $result[0];}
-                                       
-                                    ?>
-                                    </li>
-
-                                </ul>
-
-                                <?php echo " <p class='text-center mb-0'>".$prodotti[0]->getPrezzo().'</p>' ?>
-                            </div>
-                        </div>
-                    </div>
-
+        </div>'; }?>
                 </div>
             </div>
         </div>
     </div>
+
+
     <?php
     include 'footer.php';
     include 'script.php';

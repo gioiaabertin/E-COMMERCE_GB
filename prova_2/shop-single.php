@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+include_once 'cksessio.php';
+
 ?>
 
 <!DOCTYPE html>

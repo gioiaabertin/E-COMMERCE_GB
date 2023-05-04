@@ -7,18 +7,21 @@ $msg = "";
 //se l'user non è tutti caratteri => msg = messaggio errore
 $id = $_POST["this_user"];
 $pw = md5($_POST["this_pw"]);
-$query = "SELECT * FROM utenti WHERE id = ? AND pw = ?";
+$query = "SELECT * FROM utenti WHERE user = ? AND pw= ?";
 $params = ["ss", $id, $pw];
-$results = DatabaseClassSingleton::getInstance()->Select($query, $params);
+$results = DatabaseClassSingleton::getInstance()->Select($query,$params);
+
 
 if (count($results) == 1) {
-    $_SESSION["utID"] = $result[0];
-    
+
+    $_SESSION["idU"] = $result[0];
+    if(isset($_SESSION["carrello"]) )
+        header("location: creacarrello.php?id=".$_SESSION['idU']);
 
     header("location: index.php?msg=" . "benvenuto!");
 } else
     $msg = "login errato";
-    header("location: shop.php?msg=" . $msg);
+    header("location: shop.php?msg=" . $s);
 
 
 ?>

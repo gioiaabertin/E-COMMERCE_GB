@@ -7,9 +7,14 @@ include 'conn.php';
     if(!isset($_POST['q']))
     $q=1;
     else $q=$_POST['q'];
- 
+
+if (isset($_GET['id']))
+    $id = $_GET['id'];
+
     $query = "INSERT INTO carrello(idProdotto,idCarello,quant)";
-    $params = ["iii",$_POST["idP"], $_SESSION["car"],$q];
+    
+    $params = ["iii",$_SESSION['idU'], $_SESSION["car"],$q];
+    echo $params;
     $results = DatabaseClassSingleton::getInstance()->Insert($query, $params);
 
    

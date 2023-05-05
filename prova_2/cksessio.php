@@ -1,11 +1,8 @@
 <?php 
 
 if(isset($_SESSION["idU"])) {
-    $_SESSION["guest"]=1;
+    $_SESSION["idU"]=0;
     if(isset($_SESSION['car']))
-        header("location: carrelloguest.php");
-    
+        header("location: trovacarrello.php?id=0");
 }
-    else $_SESSION["guest"]=0;
-
 ?>

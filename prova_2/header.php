@@ -60,7 +60,7 @@ include_once 'DatabaseClassSingleton.php'?>
         <nav class="navbar navbar-expand-lg navbar-light shadow">
             <div class="container d-flex justify-content-between align-items-center">
 
-                <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+                <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
                     JOY
                 </a>
 
@@ -76,7 +76,7 @@ include_once 'DatabaseClassSingleton.php'?>
                         <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li><a class="text-decoration-none" href="index.php">Home</a></li>
                             <li><a class="text-decoration-none" href="shop.php">Prodotti</a></li>
-                            <li><a class="text-decoration-none" href="mostra-carrello.php">Carello</a></li>
+                            <li><a class="text-decoration-none" href="carrello.php">Carello</a></li>
                             <li class="nav-item dropdown"><select>
                                     <option value="shop.php?msg='-'" selected>Categorie</option>
                                     <?php
@@ -104,7 +104,7 @@ include_once 'DatabaseClassSingleton.php'?>
                             data-bs-target="#templatemo_search">
                             <i class="fa fa-fw fa-search text-dark mr-2"></i>
                         </a>
-                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <a class="nav-icon position-relative text-decoration-none" href="carrello.php">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                             <span
                                 class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>

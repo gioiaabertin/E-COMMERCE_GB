@@ -7,14 +7,15 @@ include 'DatabaseClassSingleton.php';
 $msg = "";
 
 
-$id = 'guest';
-$query = "SELECT * FROM utenti as u join carrelli as c WHERE user =?";
+$id = $_GET['id'];
+$query = "SELECT * FROM utenti join carrelli WHERE user =?";
 $params = ["s", $id];
 $results = DatabaseClassSingleton::getInstance()->Select($query, $params);
 
 if ($results>0)
 {
     $lastResult = end($results);  
-    $_SESSION['car'] =$lastResult ['c.id'];
+    $_SESSION['car'] =$lastResult ['idCar'];
 }
+else header('location:"creacarrello.php?id='.$id.'"')
 ?>

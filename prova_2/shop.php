@@ -122,7 +122,7 @@ include_once 'cksessio.php';
                 $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM prodotti');
                 foreach ($result as $row) {
                     echo $row['nome'].'<br>';
-                    $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['foto'],$row['taglie']);
+                    $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['taglie']);
                     array_push($prodotti,$p);
                 }
                    $_SESSION['prodotti'] = $prodotti;

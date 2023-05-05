@@ -10,11 +10,10 @@ class CProduct
 
     public $prezzo = 0;
 
-    public $foto = '';
 
     public $taglie ='';
     // costruttore della classe
-    public function __construct( $id,$nome , $descr , $quantitaManc , $idCateg , $prezzo , $foto, $taglie )
+    public function __construct( $id,$nome , $descr , $quantitaManc , $idCateg , $prezzo , $taglie )
     {
         $this->id = $id;
         $this->nome = $nome;
@@ -22,7 +21,6 @@ class CProduct
         $this->quantitaManc = $quantitaManc;
         $this->idCateg = $idCateg;
         $this->prezzo = $prezzo;
-        $this->foto=$foto;
         $this->taglie = $taglie;
     }
  
@@ -72,14 +70,6 @@ class CProduct
 
     public function setPrezzo($prezzo) {
         $this->prezzo = $prezzo;
-    }
-
-    public function getFoto() {
-        return $this->foto;
-    }
-
-    public function setFoto($foto) {
-        $this->foto = $foto;
     }
 
     public function getTaglie()

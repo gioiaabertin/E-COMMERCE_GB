@@ -1,5 +1,5 @@
 <?php include 'header.php';
-
+include_once 'Cproduct.php';
 include_once 'DatabaseClassSingleton.php';
 
 ?>
@@ -134,27 +134,21 @@ include_once 'DatabaseClassSingleton.php';
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-4 p-5 mt-3">
+                <?php
+$result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
+foreach ($result as $row) {
+    echo ' <div class="col-12 col-md-4 p-5 mt-3">
                     <a href="#"><img src="./assets/img/category_img_01.jpg" class="rounded-circle img-fluid border"></a>
-                    <h5 class="text-center mt-3 mb-3">Watches</h5>
+                    <h5 class="text-center mt-3 mb-3">'.$row["nome"].'</h5>
                     <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-                </div>
-                <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./assets/img/category_img_02.jpg" class="rounded-circle img-fluid border"></a>
-                    <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
-                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-                </div>
-                <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./assets/img/category_img_03.jpg" class="rounded-circle img-fluid border"></a>
-                    <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-                </div>
+                </div>' ;
+}
+?>
+
+
             </div>
         </section>
         <!-- End Categories of The Month -->
-
-
-        <!-- Start Featured Product -->
         <section class="bg-light">
             <div class="container py-5">
                 <div class="row text-center py-3">
@@ -167,97 +161,65 @@ include_once 'DatabaseClassSingleton.php';
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-4 mb-4">
-                        <div class="card h-100">
-                            <a href="shop-single.php">
-                                <img src="./assets/img/feature_prod_01.jpg" class="card-img-top" alt="...">
-                            </a>
-                            <div class="card-body">
-                                <ul class="list-unstyled d-flex justify-content-between">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                    </li>
-                                    <li class="text-muted text-right">$240.00</li>
-                                </ul>
-                                <a href="shop-single.php" class="h2 text-decoration-none text-dark">Gym Weight</a>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui
-                                    officia
-                                    deserunt.
-                                </p>
-                                <p class="text-muted">Reviews (24)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 mb-4">
-                        <div class="card h-100">
-                            <a href="shop-single.php">
-                                <img src="./assets/img/feature_prod_02.jpg" class="card-img-top" alt="...">
-                            </a>
-                            <div class="card-body">
-                                <ul class="list-unstyled d-flex justify-content-between">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                        <i class="text-muted fa fa-star"></i>
-                                    </li>
-                                    <li class="text-muted text-right">$480.00</li>
-                                </ul>
-                                <a href="shop-single.php" class="h2 text-decoration-none text-dark">Cloud Nike
-                                    Shoes</a>
-                                <p class="card-text">
-                                    Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed,
-                                    commodo
-                                    ullamcorper.
-                                </p>
-                                <p class="text-muted">Reviews (48)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 mb-4">
-                        <div class="card h-100">
-                            <a href="shop-single.php">
-                                <img src="./assets/img/feature_prod_03.jpg" class="card-img-top" alt="...">
-                            </a>
-                            <div class="card-body">
-                                <ul class="list-unstyled d-flex justify-content-between">
-                                    <li>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                        <i class="text-warning fa fa-star"></i>
-                                    </li>
-                                    <li class="text-muted text-right">$360.00</li>
-                                </ul>
-                                <a href="shop-single.php" class="h2 text-decoration-none text-dark">Summer Addides
-                                    Shoes</a>
-                                <p class="card-text">
-                                    Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et
-                                    scelerisque ipsum lobortis nec.
-                                </p>
-                                <p class="text-muted">Reviews (74)</p>
-                            </div>
-                        </div>
+
+                    <?php
+        $prodotti = array();
+$result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM prodotti');
+foreach ($result as $row) {
+    
+    $p = new CProduct($row['id'], $row['nome'], $row['descr'], $row['quantitaManc'], $row['idCateg'], $row['prezzo'], $row['taglie']);
+    array_push($prodotti, $p);
+}
+$_SESSION['prodotti'] = $prodotti;
+?>
+                    <div class="row">
+                        <?php
+    $prodotti = $_SESSION['prodotti'];
+
+    for ($i = 0; $i < count($prodotti); $i++) {
+        echo '
+<div class="col-12 col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <a href="shop-single.phpshop-single.phpid=' . $prodotti[$i]->getId() . '">
+                                                <img src="./assets/img/feature_prod_01.jpg" class="card-img-top"
+                                                    alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <ul class="list-unstyled d-flex justify-content-between">
+                                                    <li>';
+                                                       $idtemp = $prodotti[$i]->getId();
+                        
+                        $result =
+                        DatabaseClassSingleton::getInstance()->Select('SELECT AVG(stelle) as media_stelle FROM
+                        commenti where idProd=?', ["i",&$idtemp]);
+                        foreach($result as $row) {
+                        $nstelle= $row["media_stelle"];
+                        for ($j = 0; $j < $nstelle; $j++) { echo ' <i class="text-warning fa fa-star"></i>' ;}}
+                            echo '</li>
+                                                    <li class="text-muted text-right">$'. $prodotti[$i]->getprezzo() . '</li>
+                                                </ul>
+                                                <a href="shop-single.phpid=' . $prodotti[$i]->getId() . '" class="h2 text-decoration-none text-dark">
+                                                ' . $prodotti[$i]->getNome() . '</a>
+                                                <p class="card-text">
+                                                   ' . $prodotti[$i]->getdescr() . '
+                                                </p>
+                                                <p class="text-muted">Reviews ('.  rand(100, 3000) .')</p>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- End Featured Product -->
+            </div> ';
 
 
-        <?php include 'footer.php' ;
+            } ?></div>
+
+
+
+                    <?php include 'footer.php' ;
         include 'script.php';?>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                        crossorigin="anonymous">
+                    </script>
     </body>
 
 </php>

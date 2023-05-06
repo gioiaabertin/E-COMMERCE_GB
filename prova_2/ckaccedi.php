@@ -13,15 +13,16 @@ $results = DatabaseClassSingleton::getInstance()->Select($query,$params);
 
 
 if (count($results) == 1) {
-
-    $_SESSION["idU"] = $result[0];
+foreach($result as $row)
+    $_SESSION["idU"] = $row['id'];
+    
     if(isset($_SESSION["carrello"]) )
         header("location: creacarrello.php?id=".$_SESSION['idU']);
 
     header("location: index.php?msg=" . "benvenuto!");
-} else
+} else{
     $msg = "login errato";
-    header("location: shop.php?msg=" . $s);
-
+    header("location: shop.php?msg=" . $msg);
+}
 
 ?>

@@ -1,6 +1,7 @@
 <?php include 'header.php';
 include_once 'Cproduct.php';
 include_once 'DatabaseClassSingleton.php';
+include_once ''
 
 ?>
 <!DOCTYPE php>

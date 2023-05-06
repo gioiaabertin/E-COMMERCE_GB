@@ -109,11 +109,14 @@ include_once 'DatabaseClassSingleton.php'?>
                             <span
                                 class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                         </a>
-                        <a class="nav-icon position-relative text-decoration-none" href="accedi.php">
+                        <?PHP 
+                        if($_SESSION['idU']== 0 || isset($_SESSION['idU']))
+                        echo ' <a class="nav-icon position-relative text-decoration-none" href="accedi.php">
                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
                             <span
                                 class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-                        </a>
+                            </a>';
+                            ?>
                     </div>
                 </div>
 

@@ -4,7 +4,8 @@ include 'CProduct.php';
 include_once 'DatabaseClassSingleton.php';
 //include_once 'cksessio.php';
 
-echo $_SESSION['idU'];
+if (isset($_GET["msg"]))
+    echo "<script>alert('" . $_GET["msg"] . "');</script>";
 
 ?>
 <!DOCTYPE html>

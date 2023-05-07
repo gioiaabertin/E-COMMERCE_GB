@@ -1,4 +1,5 @@
-<?php  include 'creacarrello.php';
+<?php 
+
 include_once 'header.php';  
  
   
@@ -12,9 +13,9 @@ $prodUt = array();
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Nome</th>
-            <th scope="col">+</th>
-            <th scope="col">Quant</th>
             <th scope="col">-</th>
+            <th scope="col">Quant</th>
+            <th scope="col">+</th>
             <th scope="col">X</th>
         </tr>
     </thead>
@@ -25,10 +26,12 @@ $prodUt = array();
         $sql = 'SELECT * FROM carrelli join carrellocarica on idCar=idCarello join prodotti on idProdotto=id WHERE idCar=?';
         $params = ["i", &$_COOKIE['car']];
         $result = DatabaseClassSingleton::getInstance()->Select($sql, $params);
-        if (count($result) == 1) {
+        if (count($result) >0) {
             foreach ($result as $row) {
                 echo '<tr>';
-                echo ' <th>' . $row['idProdotto'] . '</th><th>' . $row['nome'] . '</th><th></th><th>' . $row['quant'] . '</th>';
+                echo ' <th>' . $row['idProdotto'] . '</th><th>' . $row['nome'] . '</th><th><a href="menoquant.php?id='.$row['idUnione'].'">
+                -</th><th>' . $row['quant'] . '</th><th><a href="piuquant.php?id='.$row['idUnione'].'">+</th><th><a href=
+                "cancP.php?id=' . $row['idUnione'] . '">X</th>';
                 echo '</tr>';
                 $p = new CProduct(
                     $row['id'], $row['nome'], $row['descr'], $row['quantitaManc'],

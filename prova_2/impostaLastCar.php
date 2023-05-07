@@ -1,6 +1,6 @@
 <?php
-if (session_status() == PHP_SESSION_ACTIVE) {
-include session_start();}
+if (session_status() != PHP_SESSION_ACTIVE) {
+include_once session_start();}
 include 'DatabaseClassSingleton.php';
 
 

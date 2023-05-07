@@ -2,8 +2,9 @@
 include 'header.php';
 include 'CProduct.php';
 include_once 'DatabaseClassSingleton.php';
-include_once 'cksessio.php';
+//include_once 'cksessio.php';
 
+echo $_SESSION['idU'];
 
 ?>
 <!DOCTYPE html>
@@ -121,7 +122,7 @@ include_once 'cksessio.php';
                 $prodotti = array();
                 $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM prodotti');
                 foreach ($result as $row) {
-                    echo $row['nome'].'<br>';
+                   
                     $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['taglie']);
                     array_push($prodotti,$p);
                 }

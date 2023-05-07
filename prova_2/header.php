@@ -1,6 +1,4 @@
-<?php if (session_status() != PHP_SESSION_ACTIVE) {
-    session_start();
-}
+<?php  session_start(); 
 include_once 'DatabaseClassSingleton.php'?>
 <!DOCTYPE php>
 <php lang="en">
@@ -109,14 +107,14 @@ include_once 'DatabaseClassSingleton.php'?>
                         <a class="nav-icon position-relative text-decoration-none" href="carrello.php">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                             <span
-                                class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">...</span>
+                                class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                         </a>
                         <?PHP 
                         if($_SESSION['idU']== 0 || isset($_SESSION['idU']))
                         echo ' <a class="nav-icon position-relative text-decoration-none" href="accedi.php">
                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
                             <span
-                                class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                                class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                             </a>';
                             ?>
                     </div>

@@ -1,7 +1,5 @@
 <?php
-if (session_status() != PHP_SESSION_ACTIVE) {
-    session_start();
-}
+session_start();
 include_once 'DatabaseClassSingleton.php';
 
 

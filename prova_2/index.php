@@ -1,13 +1,8 @@
 <?php include 'header.php';
 include_once 'Cproduct.php';
 include_once 'DatabaseClassSingleton.php';
+include_once ''
 
-//include_once 'cksessio.php';
-if(isset($_GET['msg']))
-echo $_GET['msg'];
-  if (isset($_COOKIE['car']))
-  echo $_COOKIE['car'];
-echo $_SESSION['idU'];
 ?>
 <!DOCTYPE php>
 <php lang="en">
@@ -144,7 +139,7 @@ echo $_SESSION['idU'];
 $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
 foreach ($result as $row) {
     echo ' <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./imm/'.$row['foto'].'.jpg" class="rounded-circle img-fluid border"></a>
+                    <a href="#"><img src="./assets/img/category_img_01.jpg" class="rounded-circle img-fluid border"></a>
                     <h5 class="text-center mt-3 mb-3">'.$row["nome"].'</h5>
                     <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
                 </div>' ;
@@ -215,20 +210,17 @@ $_SESSION['prodotti'] = $prodotti;
             </div> ';
 
 
-            } ?>
-                    </div>
-                </div>
-            </div>
+            } ?></div>
 
 
 
-            <?php include 'footer.php' ;
+                    <?php include 'footer.php' ;
         include 'script.php';?>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-                crossorigin="anonymous">
-            </script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+                        crossorigin="anonymous">
+                    </script>
     </body>
 
 </php>

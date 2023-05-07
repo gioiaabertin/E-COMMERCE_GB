@@ -1,6 +1,8 @@
 <?php
 include 'DatabaseClassSingleton.php';
-
+if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 $msg = "";
 
@@ -9,18 +11,19 @@ $id = $_POST["this_user"];
 $pw = md5($_POST["this_pw"]);
 $query = "SELECT * FROM utenti WHERE user = ? AND pw= ?";
 $params = ["ss", $id, $pw];
-$results = DatabaseClassSingleton::getInstance()->Select($query,$params);
+$results = DatabaseClassSingleton::getInstance()->Select($query, $params);
 
 
 if (count($results) == 1) {
-foreach($result as $row)
-    $_SESSION["idU"] = $row['id'];
-    
-    if(isset($_SESSION["carrello"]) )
-        header("location: creacarrello.php?id=".$_SESSION['idU']);
+    foreach ($results as $row)
+        $_SESSION["idU"] = $row['id'];
 
-    header("location: index.php?msg=" . "benvenuto!");
-} else{
+    if (!isset($_COOKIE['car']))
+        header("location: creacarrello.php");
+    else
+        header("location: index.php?msg=benvenuto!");
+
+} else {
     $msg = "login errato";
     header("location: shop.php?msg=" . $msg);
 }

@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-include_once 'cksessio.php';
+//include_once 'cksessio.php';
 
 ?>
 

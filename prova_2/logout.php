@@ -1,6 +1,9 @@
-<?php
+<?php 
+if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
-if (!isset($_SESSION["idU"]))
-    $_SESSION["idU"] = null;
-
+$_SESSION["idU"] = 0;
+include 'creacarrello.php';
+header('location:index.php');
 ?>

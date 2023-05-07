@@ -2,12 +2,12 @@
 include_once 'Cproduct.php';
 include_once 'DatabaseClassSingleton.php';
 
-//include_once 'cksessio.php';
+include_once 'creacarrello.php';
 if(isset($_GET['msg']))
 echo $_GET['msg'];
   if (isset($_COOKIE['car']))
-  echo $_COOKIE['car'];
-echo $_SESSION['idU'];
+  echo 'car'.$_COOKIE['car'];
+echo 'id'.$_SESSION['idU'];
 ?>
 <!DOCTYPE php>
 <php lang="en">

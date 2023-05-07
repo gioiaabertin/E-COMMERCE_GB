@@ -3,15 +3,16 @@ if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
 }
 include_once 'DatabaseClassSingleton.php';
- $cookie_value =0;
 if (isset($_SESSION['idU'])) {
 
-    $query = "SELECT MAX(idCar) FROM carrelli WHERE idUtente = ? ";
+    $query = "SELECT * FROM carrelli WHERE idCar=(SELECT MAX(idCar) FROM carrelli WHERE idUtente = ? )";
     $params = ["i", &$_SESSION['idU']];
     $result = DatabaseClassSingleton::getInstance()->Select($query, $params);
     //header("location:shop.php");
-    if (count($result) == 1) {
-        foreach ($result as $row) {
+    
+    if ($result['0']['idCar'] !="" || $result['0']['idCar'] != null) {
+        foreach ($result as $row) { 
+            
             if ($row['pagato']==1) { //se pagato
 
                 $query = "INSERT INTO carrelli(idUtente) VALUES (?)";
@@ -34,20 +35,24 @@ if (isset($_SESSION['idU'])) {
             }
         }
 
-    } else if (count($result) != 1) { //crea nuovo
+    } else if ($result['0']['idCar'] == "" || $result['0']['idCar'] == null) { //crea nuovo()
         $query = "INSERT INTO carrelli(idUtente) VALUES (?)";
         $params = ["i", &$_SESSION['idU']];
         $results = DatabaseClassSingleton::getInstance()->Insert($query, $params); //aggiunge carrello nuovo 
+       // print_r($results);
 
         if ($results > 0) {
             $msg = 'avvenuto hai un carrello ora!';
             $cookie_name = "car";
-            $cookie_value = $result[count($result)];
+            $cookie_value = $results;
         }
     }
-
+ 
+//echo $msg;
+//echo $cookie_name.','. $cookie_value;
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-    header("location: index.php?msg=" . $msg);
+    //header("location: index.php?msg=" . $msg);
+   // echo $_COOKIE['car'];
 } else {
     $_SESSION['idU'] = 0; //sei un guest
     header('location:"creacarrello.php"');

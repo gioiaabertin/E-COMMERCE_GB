@@ -29,7 +29,7 @@ include_once 'DatabaseClassSingleton.php';
 <body>
 
     <form action="ckaccedi.php" method="post">
-        <h1>Registrati</h1>
+        <h1>Accedi</h1>
         <br>
         <p>user: </p>
         <input type="user" name="this_user"><br>

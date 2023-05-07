@@ -18,14 +18,12 @@ if (count($results) == 1) {
     foreach ($results as $row)
         $_SESSION["idU"] = $row['id'];
 
-    if (!isset($_COOKIE['car']))
-        header("location: creacarrello.php");
-    else
+include 'creacarrello.php';
         header("location: index.php?msg=benvenuto!");
 
 } else {
     $msg = "login errato";
-    header("location: shop.php?msg=" . $msg);
+    header("location: index.php?msg=" . $msg);
 }
 
 ?>

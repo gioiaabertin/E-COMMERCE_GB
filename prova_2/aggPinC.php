@@ -1,6 +1,7 @@
-<?php 
+<?php if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();}
 //aggiungi prodotto al carrello 
-
+include 'creacarrello.php';
 include 'header.php';
 include 'conn.php';
 
@@ -8,13 +9,10 @@ include 'conn.php';
     $q=1;
     else $q=$_POST['q'];
 
-if (isset($_GET['id']))
-    $id = $_GET['id'];
-
-    $query = "INSERT INTO carrello(idProdotto,idCarello,quant)";
+    $query = "INSERT INTO carrellocarica(idProdotto,idCarello,quant) values (?,?,?)";
     
-    $params = ["iii",$_SESSION['idU'], $_SESSION["car"],$q];
-    echo $params;
+    $params = ["iii",&$_GET['id'], &$_COOKIE["car"],&$q];
+    
     $results = DatabaseClassSingleton::getInstance()->Insert($query, $params);
 
    

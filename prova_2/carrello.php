@@ -1,22 +1,19 @@
-<?php 
-
-include_once 'header.php';  
- 
-  
-
+<?php
+include_once 'header.php';
 include_once 'Cproduct.php';
-$prodUt = array();
 
+$tot = 0;
 ?>
 <table class="table">
     <thead>
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Nome</th>
-            <th scope="col">-</th>
+            <th scope="col" style="color: red;">DIM </th>
             <th scope="col">Quant</th>
-            <th scope="col">+</th>
-            <th scope="col">X</th>
+            <th scope="col">AGG</th>
+            <th scope="col">CANC</th>
+            <th scope="col">Price</th>
         </tr>
     </thead>
     <tbody>
@@ -26,23 +23,28 @@ $prodUt = array();
         $sql = 'SELECT * FROM carrelli join carrellocarica on idCar=idCarello join prodotti on idProdotto=id WHERE idCar=?';
         $params = ["i", &$_COOKIE['car']];
         $result = DatabaseClassSingleton::getInstance()->Select($sql, $params);
-        if (count($result) >0) {
+        if (count($result) > 0) {
             foreach ($result as $row) {
                 echo '<tr>';
-                echo ' <th>' . $row['idProdotto'] . '</th><th>' . $row['nome'] . '</th><th><a href="menoquant.php?id='.$row['idUnione'].'">
-                -</th><th>' . $row['quant'] . '</th><th><a href="piuquant.php?id='.$row['idUnione'].'">+</th><th><a href=
-                "cancP.php?id=' . $row['idUnione'] . '">X</th>';
+                echo ' <th>' . $row['idProdotto'] . '</th><th>' . $row['nome'] . '</th><th><a style="color: red;" href="menoquant.php?id=' . $row['idUnione'] . '">
+                -</th><th>' . $row['quant'] . '</th><th><a href="piuquant.php?id=' . $row['idUnione'] . '">+</th><th><a href=
+                "cancP.php?id=' . $row['idUnione'] . '">X</th><th>' . $row['idProdotto'] * $row['quant'] . '</th>';
                 echo '</tr>';
-                $p = new CProduct(
-                    $row['id'], $row['nome'], $row['descr'], $row['quantitaManc'],
-                    $row['idCateg'], $row['prezzo'], $row['taglie']
-                );
+
+                $tot .= $row['idProdotto'] * $row['quant'];
             }
+            echo '<tr><th></th><th></th><th></th><th></th><th></th><th scope="col">Totale:</th><th>' . $tot . '</tr>';
             ?>
     </tbody>
 </table>
-<?php
-    $_SESSION['prodUt'] = $prodUt;
+<?php if ($_SESSION['idU'] != 0 || !isset($_SESSION['idU'])) {
+        echo '<form action="pagato.php" method="post">
+    <input type="button" value="pagare" id="BottPaga" name="BottPaga"></form>';
+        $_SESSION['carrello_guest'] = null;
+    } else {
+        $_SESSION['carrello_guest'] = $_COOKIE['car'];
+        echo "<h1 'style = 'text-align: center';>Devi fare l'accesso, clicca qui  <a href='accedi.php'.php>qui</a> </h1>";
+    }
         }
 
 

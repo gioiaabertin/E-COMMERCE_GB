@@ -85,5 +85,9 @@ class CProduct
     {
        // echo ....;
     }
+    function toString()
+    {
+        return "ID: " . $this->id . " | Nome: " . $this->nome . " | Descrizione: " . $this->descr . " | Quantità Mancanti: " . $this->quantitaManc . " | ID Categoria: " . $this->idCateg . " | Prezzo: " . $this->prezzo . " | Taglie: " . $this->taglie;
+    }
 }
 ?>

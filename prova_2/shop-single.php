@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include_once 'Cproduct.php';
 //include_once 'cksessio.php';
 
 ?>
@@ -28,20 +29,20 @@ include 'header.php';
 
 
 <?php
-$thisproduct=null;
-    $prodotti=$_SESSION['prodotti'];
-    $i=0;
-    while ($thisproduct!=null)
-    {
-       if($prodotti[$i]->getId()==$_GET['id']){
-        $thisproduct= new CProduct($prodotti[$i]->getId(),$prodotti[$i]->getDescr(), $prodotti[$i]->getquantitaManc(), 
-        $prodotti[$i]->getidCateg(), $prodotti[$i]->getprezzo(),$prodotti[$i]->gettaglie());
-        $_SESSION['thisproduct']=$thisproduct;
-        }
-       $i++;
+$prodotti = array();
+$prodotti = unserialize($_SESSION['prodotti']);
+$i = $_GET['id'];
+print_r($prodotti);
+// ricerca dell'oggetto con l'id corretto
+foreach ($prodotti as $p) {
+    if ($p->getId() == $i) {
+        // l'oggetto è stato trovato
+        $oggetto_trovato = $p; // o $indice se vuoi sapere l'indice nell'array
+        break;
     }
-    
-?>
+
+}
+echo $oggetto_trovato->toString(); ?>
 <!-- Open Content -->
 <section class="bg-light">
     <div class="container pb-5">
@@ -158,45 +159,65 @@ $thisproduct=null;
             <div class="col-lg-7 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="h2"><?php $thisproduct->getId() ?></h1>
-                        <p class="h3 py-2">$<?php $thisproduct->getPrezzo() ?></p>
-                        <p class="py-2">
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-warning"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                        <h1 class="h2">
+                            <?php echo $oggetto_trovato->getNome() ?>
+                        </h1>
+                        <p class="h3 py-2">$
+                            <?php echo $oggetto_trovato->getPrezzo() ?>
                         </p>
-                        <ul class="list-inline">
+                        <p class="py-2">
+                            <?php
+                            $idtemp = $oggetto_trovato->getId();
+                            $i = 0;
+                            $result =
+                                DatabaseClassSingleton::getInstance()->Select('SELECT AVG(stelle) as media_stelle FROM
+                                commenti where idProd=?', ["i", &$idtemp]);
+                            foreach ($result as $row) {
+                                $nstelle = $row["media_stelle"];
+                                for ($j = 0; $j < $nstelle; $j++) {
+                                    echo ' <i class="text-warning fa fa-star"></i>';
+                                    $i = $i + 1;
+                                }
+                            }
+                            echo '</li></ul>';
+
+                            for ($j = $i; $j = 5 - $i; $i++) {
+
+                                echo '<i class="fa fa-star text-secondary"></i>';
+                            } ?>
+                        </p>
+                        <span class="list-inline-item text-dark">
+
+                            <a href="#c&s">aggiungi un commento</a>
+                        </span>
+                        </p>
+                        <ul class=" list-inline">
                             <li class="list-inline-item">
                                 <h6>Brand:</h6>
                             </li>
                             <li class="list-inline-item">
-                                <p class="text-muted"><strong>Easy Wear</strong></p>
+                                <p class="text-muted"><strong>MADE GB</strong></p>
                             </li>
                         </ul>
 
                         <h6>Description:</h6>
-                        <p><?php $thisproduct->getDescr() ?></p>
-                        <ul class="list-inline">
+                        <p>
+                            <?php echo $oggetto_trovato->getDescr() ?>
+                        </p>
+                        <!-- <ul class="list-inline">
                             <li class="list-inline-item">
                                 <h6>Avaliable Color :</h6>
                             </li>
                             <li class="list-inline-item">
                                 <p class="text-muted"><strong>White / Black</strong></p>
                             </li>
-                        </ul>
+                        </ul>-->
 
                         <h6>Specification:</h6>
                         <ul class="list-unstyled pb-3">
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Amet, consectetur</li>
-                            <li>Adipiscing elit,set</li>
-                            <li>Duis aute irure</li>
-                            <li>Ut enim ad minim</li>
-                            <li>Dolore magna aliqua</li>
-                            <li>Excepteur sint</li>
+                            <li>
+                                <?php echo $oggetto_trovato->getDescr() ?>
+                            </li>
                         </ul>
 
                         <form action="" method="GET">
@@ -247,6 +268,50 @@ $thisproduct=null;
     </div>
 
     </div>
+    <div>
+        <h1 id="c&s">COMMENTI&STELLINE</h1>
+        <?php if ($_SESSION['idU'] == 0 || !isset($_SESSION['idU']))
+            echo "devi fare l'accesso per potere commentare! clicca <a href='accedi.php'>qui</a>";
+        else {
+            echo '<form action="agCom.php" + <?php $oggetto_trovato->getId() ?> method="post">
+
+        <label>Dai un voto a <?php echo $oggetto_trovato->getNome() ?> :</label><select name="rating">
+            <option disabled selected>Seleziona la valutazione</option>
+            <option value="1">&#9733;</option>
+            <option value="2">&#9733;&#9733;</option>
+            <option value="3">&#9733;&#9733;&#9733;</option>
+            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+        </select>
+        <br>
+        <label>Descrizione&Motivazioni:
+        </label>
+
+        <textarea placeholder="Aggiungi il tuo commento"></textarea><br>
+        <input style="float: right;" type="button" value="AGGIUNGI IL MIO PARERE">
+        </form>';
+        }
+        ?>
+        <form action="agCom.php" + <?php $oggetto_trovato->getId() ?> method="post">
+            <h1 id="c&s">COMMENTI&STELLINE</h1>
+            <label>Dai un voto a
+                <?php echo $oggetto_trovato->getNome() ?> :
+            </label><select name="rating">
+                <option disabled selected>Seleziona la valutazione</option>
+                <option value="1">&#9733;</option>
+                <option value="2">&#9733;&#9733;</option>
+                <option value="3">&#9733;&#9733;&#9733;</option>
+                <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+            </select>
+            <br>
+            <label>Descrizione&Motivazioni:
+            </label>
+
+            <textarea placeholder="Aggiungi il tuo commento"></textarea><br>
+            <input style="float: right;" type="button" value="AGGIUNGI IL MIO PARERE">
+        </form>
+    </div>
 </section>
 <!-- Close Content -->
 
@@ -254,7 +319,7 @@ $thisproduct=null;
 
 
 <!-- Start Slider Script -->
-<script src="assets/js/slick.min.js"></script>
+<script src=" assets/js/slick.min.js"></script>
 <script>
 $('#carousel-related-product').slick({
     infinite: true,

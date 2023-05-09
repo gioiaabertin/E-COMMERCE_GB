@@ -4,7 +4,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 }
 include_once 'DatabaseClassSingleton.php';
 if(isset($_SESSION['carrello_guest']))
-$str='||'
+$str='||idCar='.$_SESSION['carrello_guest'];
 if (isset($_SESSION['idU'])) {
 
     $query = "SELECT * FROM carrelli WHERE idCar=(SELECT MAX(idCar) FROM carrelli WHERE idUtente = ? )";

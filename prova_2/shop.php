@@ -127,10 +127,11 @@ if (isset($_GET["msg"]))
                     $p = new CProduct($row['id'], $row['nome'], $row['descr'],$row['quantitaManc'],$row['idCateg'],$row['prezzo'],$row['taglie']);
                     array_push($prodotti,$p);
                 }
-                   $_SESSION['prodotti'] = $prodotti;
+                 
+                   print_r($prodotti);
                 ?> <div class="row">
                     <?php
-                                 $prodotti=$_SESSION['prodotti'];
+                                // $prodotti=$_SESSION['prodotti'];
                                  
                                  for( $i=0;$i<count($prodotti);$i++){
                echo'
@@ -184,7 +185,9 @@ if (isset($_GET["msg"]))
     </div>
 
 
-    <?php
+    <?php 
+     $_SESSION['prodotti'] = serialize($prodotti);
+   
     include 'footer.php';
     include 'script.php';
     ?>

@@ -38,7 +38,7 @@ $tot = 0;
     </tbody>
 </table>
 <?php if ($_SESSION['idU'] != 0 || !isset($_SESSION['idU'])) {
-        echo '<form action="pagato.php" method="post">
+        echo '<form action="pagato.php"+ method="post">
     <input type="button" value="pagare" id="BottPaga" name="BottPaga"></form>';
         $_SESSION['carrello_guest'] = null;
     } else {

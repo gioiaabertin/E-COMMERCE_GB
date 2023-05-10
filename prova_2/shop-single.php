@@ -32,7 +32,7 @@ include_once 'Cproduct.php';
 $prodotti = array();
 $prodotti = unserialize($_SESSION['prodotti']);
 $i = $_GET['id'];
-print_r($prodotti);
+
 // ricerca dell'oggetto con l'id corretto
 foreach ($prodotti as $p) {
     if ($p->getId() == $i) {
@@ -42,7 +42,26 @@ foreach ($prodotti as $p) {
     }
 
 }
-echo $oggetto_trovato->toString(); ?>
+$query = "SELECT * FROM prodotti WHERE id = ? ";
+$params = ["s", &$i];
+$results = DatabaseClassSingleton::getInstance()->Select($query, $params);
+foreach ($results as $row){
+    $quantmax=$row['quantitaManc'];
+    $taglie=explode(";",$row['taglie']);
+    
+}
+$query = "SELECT * FROM foto WHERE idP = ? ";
+$params = ["s", &$i];
+$results = DatabaseClassSingleton::getInstance()->Select($query, $params);
+$j=0;
+foreach ($results as $row) {
+  
+    $foto[$j]= $row['foto'];  
+    $j++;
+  }
+print_r($foto);
+?>
+
 <!-- Open Content -->
 <section class="bg-light">
     <div class="container pb-5">
@@ -52,117 +71,121 @@ echo $oggetto_trovato->toString(); ?>
                     <img class="card-img img-fluid" src="assets/img/product_single_10.jpg" alt="Card image cap"
                         id="product-detail">
                 </div>
-                <div class="row">
-                    <!--Start Controls-->
-                    <div class="col-1 align-self-center">
-                        <a href="#multi-item-example" role="button" data-bs-slide="prev">
-                            <i class="text-dark fas fa-chevron-left"></i>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </div>
-                    <!--End Controls-->
-                    <!--Start Carousel Wrapper-->
-                    <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item"
-                        data-bs-ride="carousel">
-                        <!--Start Slides-->
-                        <div class="carousel-inner product-links-wap" role="listbox">
 
-                            <!--First slide-->
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_01.jpg"
-                                                alt="Product Image 1">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_02.jpg"
-                                                alt="Product Image 2">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_03.jpg"
-                                                alt="Product Image 3">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.First slide-->
 
-                            <!--Second slide-->
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_04.jpg"
-                                                alt="Product Image 4">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_05.jpg"
-                                                alt="Product Image 5">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_06.jpg"
-                                                alt="Product Image 6">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.Second slide-->
-
-                            <!--Third slide-->
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_07.jpg"
-                                                alt="Product Image 7">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_08.jpg"
-                                                alt="Product Image 8">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_09.jpg"
-                                                alt="Product Image 9">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.Third slide-->
+                <form action="aggPinC.php" method="post">
+                    <div class="row">
+                        <!--Start Controls-->
+                        <div class="col-1 align-self-center">
+                            <a href="#multi-item-example" role="button" data-bs-slide="prev">
+                                <i class="text-dark fas fa-chevron-left"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
                         </div>
-                        <!--End Slides-->
+                        <!--End Controls-->
+                        <!--Start Carousel Wrapper-->
+                        <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item"
+                            data-bs-ride="carousel">
+                            <!--Start Slides-->
+                            <div class="carousel-inner product-links-wap" role="listbox">
+
+                                <!--First slide-->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg"
+                                                    alt="Product Image 1">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="./imm/<?php echo $foto[1]; ?>.jpg"
+                                                    alt="Product Image 2">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="./imm/<?php echo $foto[2]; ?>.jpg"
+                                                    alt="Product Image 3">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/.First slide-->
+
+                                <!--Second slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="assets/img/product_single_04.jpg"
+                                                    alt="Product Image 4">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="assets/img/product_single_05.jpg"
+                                                    alt="Product Image 5">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="assets/img/product_single_06.jpg"
+                                                    alt="Product Image 6">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/.Second slide-->
+
+                                <!--Third slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="assets/img/product_single_07.jpg"
+                                                    alt="Product Image 7">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="assets/img/product_single_08.jpg"
+                                                    alt="Product Image 8">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img img-fluid" src="assets/img/product_single_09.jpg"
+                                                    alt="Product Image 9">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/.Third slide-->
+                            </div>
+                            <!--End Slides-->
+                        </div>
+                        <!--End Carousel Wrapper-->
+                        <!--Start Controls-->
+                        <div class="col-1 align-self-center">
+                            <a href="#multi-item-example" role="button" data-bs-slide="next">
+                                <i class="text-dark fas fa-chevron-right"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!--End Controls-->
                     </div>
-                    <!--End Carousel Wrapper-->
-                    <!--Start Controls-->
-                    <div class="col-1 align-self-center">
-                        <a href="#multi-item-example" role="button" data-bs-slide="next">
-                            <i class="text-dark fas fa-chevron-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                    <!--End Controls-->
-                </div>
             </div>
             <!-- col end -->
+
             <div class="col-lg-7 mt-5">
                 <div class="card">
                     <div class="card-body">
                         <h1 class="h2">
                             <?php echo $oggetto_trovato->getNome() ?>
                         </h1>
-                        <p class="h3 py-2">$
+                        <p class=" h3 py-2">$
                             <?php echo $oggetto_trovato->getPrezzo() ?>
                         </p>
                         <p class="py-2">
@@ -224,48 +247,46 @@ echo $oggetto_trovato->toString(); ?>
                             <input type="hidden" name="product-title" value="Activewear">
                             <div class="row">
                                 <div class="col-auto">
-                                    <ul class="list-inline pb-3">
-                                        <li class="list-inline-item">Size :
-                                            <input type="hidden" name="product-size" id="product-size" value="S">
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">S</span>
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">M</span>
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">L</span>
-                                        </li>
-                                        <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span>
-                                        </li>
-                                    </ul>
+                                    <label>Taglie:</label><select name="taglie">
+                                        <option disabled selected>Scegli la tua taglia:</option>
+                                        <?php foreach ($taglie as $t)
+                                        echo "<option value='".$t."'> $t
+                                        </option>";
+                                        
+                                        ?>
+                                    </select>
                                 </div>
-                                <form action="addPinC.php" +q.value method="post">
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
-                                            <li class="list-inline-item text-right">
-                                                Quantity
-                                                <input type="hidden" name="q" id="q" value="1">
-                                            </li>
-                                            <li class="list-inline-item"><span class="btn btn-success"
-                                                    id="btn-minus">-</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary"
-                                                    id="var-value">1</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success"
-                                                    id="btn-plus">+</span></li>
-                                        </ul>
-                                    </div>
+                                <script>
+
+                                </script>
+                                <div class="col-auto">
+                                    <ul class="list-inline pb-3">
+                                        <div class="product-quantity">
+                                            <span>Quantity:</span>
+                                            <div class="product-quantity-slider">
+                                                <input id="product-quantity" value="1" type="number" min="1"
+                                                    max="<?php echo  $quantmax?>" name="quantity">
+                                            </div>
+                                        </div>
+                                    </ul>
+
+                                </div>
                             </div>
+
                             <div class="row pb-3">
 
                                 <div class="col d-grid">
                                     <button type="submit" class="btn btn-success btn-lg" name="submit"
-                                        value="addtocard">Add To Cart</button>
+                                        value="addtocard">Add To
+                                        Cart</button>
                                 </div>
-                        </form>
+
+                            </div>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
-    </div>
 
     </div>
     <div>
@@ -273,9 +294,9 @@ echo $oggetto_trovato->toString(); ?>
         <?php if ($_SESSION['idU'] == 0 || !isset($_SESSION['idU']))
             echo "devi fare l'accesso per potere commentare! clicca <a href='accedi.php'>qui</a>";
         else {
-            echo '<form action="agCom.php" + <?php $oggetto_trovato->getId() ?> method="post">
+            echo '<form action="agCom.php" + ' . $oggetto_trovato->getId() . ' method="post">
 
-        <label>Dai un voto a <?php echo $oggetto_trovato->getNome() ?> :</label><select name="rating">
+        <label>Dai un voto a ' . $oggetto_trovato->getNome() . ':</label><select name="rating">
             <option disabled selected>Seleziona la valutazione</option>
             <option value="1">&#9733;</option>
             <option value="2">&#9733;&#9733;</option>
@@ -292,25 +313,6 @@ echo $oggetto_trovato->toString(); ?>
         </form>';
         }
         ?>
-        <form action="agCom.php" + <?php $oggetto_trovato->getId() ?> method="post">
-            <h1 id="c&s">COMMENTI&STELLINE</h1>
-            <label>Dai un voto a
-                <?php echo $oggetto_trovato->getNome() ?> :
-            </label><select name="rating">
-                <option disabled selected>Seleziona la valutazione</option>
-                <option value="1">&#9733;</option>
-                <option value="2">&#9733;&#9733;</option>
-                <option value="3">&#9733;&#9733;&#9733;</option>
-                <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-            </select>
-            <br>
-            <label>Descrizione&Motivazioni:
-            </label>
-
-            <textarea placeholder="Aggiungi il tuo commento"></textarea><br>
-            <input style="float: right;" type="button" value="AGGIUNGI IL MIO PARERE">
-        </form>
     </div>
 </section>
 <!-- Close Content -->

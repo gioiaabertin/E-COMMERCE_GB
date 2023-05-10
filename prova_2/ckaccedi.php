@@ -16,7 +16,10 @@ $results = DatabaseClassSingleton::getInstance()->Select($query, $params);
 
 if (count($results) == 1) {
     foreach ($results as $row)
-        $_SESSION["idU"] = $row['id'];
+       { $_SESSION["idU"] = $row['id'];
+        
+        if($row['amm']==1)
+    $_SESSION['amm']=true;}
 
 include 'creacarrello.php';
         header("location: index.php?msg=benvenuto!");

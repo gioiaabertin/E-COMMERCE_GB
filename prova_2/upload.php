@@ -1,10 +1,6 @@
 <?php
 session_start();
 include 'DatabaseClassSingleton.php';
-$id = $_GET["user"];
-$user = $_SESSION["ckuser"];
-
-if ($user == $_SESSION["USER"]) {
 
     $uploadDir = __DIR__ . '\imm';
 
@@ -16,7 +12,7 @@ if ($user == $_SESSION["USER"]) {
     }
     $path = str_replace('.jpg', "", basename($file['name']));
     $descr = $_POST["this_desc"];
-    $stmt = $conn->prepare("INSERT INTO foto(path,descr,id_prop) VALUES (?,?,?)");
+    $stmt = $conn->prepare("INSERT INTO foto(foto,testo,idP) VALUES (?,?,?)");
     $stmt->bind_param("ssi", $path, $descr, $id);
 
     if ($stmt->execute() === TRUE)
@@ -25,5 +21,5 @@ if ($user == $_SESSION["USER"]) {
         $msg = "inserimento foto NON avvenuto!"; //sistemato la logica (la tua era ridondante nelle chiamate)
         header("location: index.php" . ($msg == "" ? "" : "?msg=$msg"));
     }
-}
+
 ?>

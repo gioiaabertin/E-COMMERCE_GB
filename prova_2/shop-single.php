@@ -50,6 +50,7 @@ foreach ($results as $row){
     $taglie=explode(";",$row['taglie']);
     
 }
+$_SESSION['PCommID']=$oggetto_trovato->getId();
 $query = "SELECT * FROM foto WHERE idP = ? ";
 $params = ["s", &$i];
 $results = DatabaseClassSingleton::getInstance()->Select($query, $params);
@@ -294,25 +295,31 @@ print_r($foto);
         <?php if ($_SESSION['idU'] == 0 || !isset($_SESSION['idU']))
             echo "devi fare l'accesso per potere commentare! clicca <a href='accedi.php'>qui</a>";
         else {
-            echo '<form action="agCom.php" + ' . $oggetto_trovato->getId() . ' method="post">
-
-        <label>Dai un voto a ' . $oggetto_trovato->getNome() . ':</label><select name="rating">
+            echo '<form action="agCom.php" method="get"> 
+            <label for="TText" >Titolo: </label>
+ <input type="text" name="TText" id="TText" placeholder="Dai un titolo...">
+    <br><br>
+        <label for="rating">Dai un voto a ' . $oggetto_trovato->getNome() . ':</label>
+       <select name="rating" id="rating">
             <option disabled selected>Seleziona la valutazione</option>
-            <option value="1">&#9733;</option>
-            <option value="2">&#9733;&#9733;</option>
-            <option value="3">&#9733;&#9733;&#9733;</option>
-            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-        </select>
-        <br>
-        <label>Descrizione&Motivazioni:
-        </label>
-
-        <textarea placeholder="Aggiungi il tuo commento"></textarea><br>
-        <input style="float: right;" type="button" value="AGGIUNGI IL MIO PARERE">
+            <option value="1">&#9733</option>
+            <option value="2">&#9733&#9733</option>
+            <option value="3">&#9733&#9733&#9733</option>
+            <option value="4">&#9733&#9733&#9733&#9733</option>
+            <option value="5">&#9733&#9733&#9733&#9733&#9733</option>
+       </select> <br><br>
+       
+        <label for="TDesc" >Descrizione&Motivazioni: </label>
+<input type="text" name="TDesc" id="TDesc" placeholder="Aggiungi il tuo commento">
+        <input type="submit" value="INVIO IL MIO PARERE">
+         
+          
+           
         </form>';
+        
         }
         ?>
+
     </div>
 </section>
 <!-- Close Content -->

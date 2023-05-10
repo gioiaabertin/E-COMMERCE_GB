@@ -84,13 +84,17 @@ include_once 'DatabaseClassSingleton.php' ?>
                                     <?php
                                     $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
                                     foreach ($result as $row) {
-                                        echo ' <option value="shop.php?msg=' . $row["nome"] . '">' . $row["nome"] . '</option>';
+                                        echo ' <option value="shop.php?msg=' . $row["nomeC"] . '">' . $row["nomeC"] . '</option>';
                                     }
                                     ?>
 
-                                </select></li>
-
-                            <li><a class="text-decoration-none" href="contatti.php">Contatti</a></li>
+                                </select>
+                            </li>
+                            <?php
+                           
+                            if(isset($_SESSION['amm'])&& $_SESSION['amm']==true)
+                            echo '<li><a class="text-decoration-none" href="PAMM.php">Tabella AMM prodotti</a></li>'
+                        ?>
                         </ul>
                     </div>
                     <div class="navbar align-self-center d-flex">
@@ -126,7 +130,11 @@ include_once 'DatabaseClassSingleton.php' ?>
 </svg>
                             <span
                                 class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                            </a>'; ?>
+                            </a>'; 
+                            
+                            
+                            
+                            ?>
 
                     </div>
                 </div>

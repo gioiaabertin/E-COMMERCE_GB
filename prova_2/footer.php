@@ -56,7 +56,7 @@ include_once 'DatabaseClassSingleton.php'?>
                             <?php 
                             $result=DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
                             foreach ($result as $row) {
-                                echo '<li><a class="text-decoration-none" href="shop.php">'. $row["nome"] .'</a></li>';}
+                                echo '<li><a class="text-decoration-none" href="shop.php">'. $row["nomeC"] .'</a></li>';}
                             ?>
                         </ul>
                     </div>

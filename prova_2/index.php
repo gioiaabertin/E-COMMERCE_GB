@@ -144,8 +144,8 @@ echo 'id'.$_SESSION['idU'];
 $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
 foreach ($result as $row) {
     echo ' <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./imm/'.$row['foto'].'.jpg" class="rounded-circle img-fluid border"></a>
-                    <h5 class="text-center mt-3 mb-3">'.$row["nome"].'</h5>
+                    <a href="#"><img src="./imm/'.$row['fotoC'].'.jpg" class="rounded-circle img-fluid border"></a>
+                    <h5 class="text-center mt-3 mb-3">'.$row["nomeC"].'</h5>
                     <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
                 </div>' ;
 }

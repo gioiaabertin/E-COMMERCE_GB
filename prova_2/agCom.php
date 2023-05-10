@@ -4,24 +4,22 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 }
 include_once 'DatabaseClassSingleton.php';
 
-$idP=$_GET["id"];
+$idP=$_SESSION["PCommID"];
+$rating=$_GET['rating'];
+$comm=$_GET['TDesc'];
+$title= $_GET['TText'];
 
-$query = "INSERT INTO utenti(nome,cognome,user,mail,cell,pw,ncarta) VALUES (?,?,?,?,?,?,?)";
-$params = [
-"ssssisi", $_POST["this_nome"], $_POST["this_cognome"], $_POST["this_user"],
-$_POST["this_mail"], $_POST["this_cell"],
-md5($pw), $_POST["this_ncarta"] /*,$_POST["this_scad"]*/
-];
-foreach ($params as $p)
-echo $p . '</br>';
+echo $rating.$comm;
+$query = "INSERT INTO commenti(idUtente,idProd,stelle,titolo,descr) VALUES (?,?,?,?,?)";
+$params = ["iiiss", $_SESSION["idU"], $_SESSION["PCommID"], $rating,$title, $comm];
 $results = DatabaseClassSingleton::getInstance()->Insert($query, $params);
 
 
-print_r($results);
-if ($result == false) {
+$msg="Avvenuto con successo! COntinua a fare shopping";
+if ($results == false) {
 $msg = "inserimento NON avvenuto!";
-header("location: accedi.php" . ($msg == "" ? "" : "?msg=$msg"));
+header("location: index.php" . ($msg == "" ? "" : "?msg=$msg"));
 } else
-header("location: index.php" . $msg);
+header("location: shop.php" . $msg);
 
 ?>

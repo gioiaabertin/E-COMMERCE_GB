@@ -38,11 +38,11 @@ include_once 'DatabaseClassSingleton.php';
             <input type="text" name="this_quantM">
             <p>Categoria: </p>
             <select name="this_cat">
-                <option value="shop.php?msg='-'" selected>Categorie</option>
+                <option disabled selected>Categorie</option>
                 <?php
                                     $result = DatabaseClassSingleton::getInstance()->Select('SELECT * FROM categorie');
                                     foreach ($result as $row) {
-                                        echo ' <option value="shop.php?msg=' . $row["nomeC"] . '">' . $row["nomeC"] . '</option>';
+                                        echo ' <option value="' . $row["idC"] . '">' . $row["nomeC"] . '</option>';
                                     }
                                     ?>
 

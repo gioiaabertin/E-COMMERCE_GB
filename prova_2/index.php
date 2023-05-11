@@ -4,8 +4,9 @@ include_once 'DatabaseClassSingleton.php';
 
 include_once 'creacarrello.php';
 if(isset($_GET['msg']))
-echo $_GET['msg'];
-  if (isset($_COOKIE['car']))
+    echo "<script>alert('" . $_GET["msg"] . "');</script>";
+
+if (isset($_COOKIE['car']))
   echo 'car'.$_COOKIE['car'];
 echo 'id'.$_SESSION['idU'];
 ?>

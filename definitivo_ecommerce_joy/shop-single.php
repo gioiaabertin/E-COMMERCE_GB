@@ -70,7 +70,7 @@ print_r($foto);
         <div class="row">
             <div class="col-lg-5 mt-5">
                 <div class="card mb-3">
-                    <img class="card-img img-fluid" src="assets/img/product_single_10.jpg" alt="Card image cap"
+                    <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg" alt="Card image cap"
                         id="product-detail">
                 </div>
 
@@ -102,13 +102,13 @@ print_r($foto);
                                     </div>
                                     <div class="col-4">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[1]; ?>.jpg"
+                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg"
                                                 alt="Product Image 2">
                                         </a>
                                     </div>
                                     <div class="col-4">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[2]; ?>.jpg"
+                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg"
                                                 alt="Product Image 3">
                                         </a>
                                     </div>
@@ -121,50 +121,25 @@ print_r($foto);
                                 <div class="row">
                                     <div class="col-4">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_04.jpg"
-                                                alt="Product Image 4">
+                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg"
+                                                alt="Product Image 2">
                                         </a>
                                     </div>
                                     <div class="col-4">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_05.jpg"
-                                                alt="Product Image 5">
+                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg"
+                                                alt="Product Image 2">
                                         </a>
                                     </div>
                                     <div class="col-4">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_06.jpg"
-                                                alt="Product Image 6">
+                                            <img class="card-img img-fluid" src="./imm/<?php echo $foto[0]; ?>.jpg"
+                                                alt="Product Image 2">
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <!--/.Second slide-->
-
-                            <!--Third slide-->
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_07.jpg"
-                                                alt="Product Image 7">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_08.jpg"
-                                                alt="Product Image 8">
-                                        </a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_09.jpg"
-                                                alt="Product Image 9">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.Third slide-->
                         </div>
                         <!--End Slides-->
                     </div>

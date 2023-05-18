@@ -1,20 +1,26 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php
 include_once 'conn.php';
-if(isset($_POST['id']) && isset($_POST['checked'])) {
-  $id = $_POST['id'];
-  $checked = $_POST['checked'];}
+if (isset($_GET['id']) && isset($_GET['stato'])) {
+  $id = $_GET['id'];
+  $stato = $_GET['stato'];
 
-$stmt = $conn->prepare("UPDATE prodotti SET inEvid = ? WHERE id = ?");
-$stmt->bind_param("bi", $checked, $id);
+  if ($stato == 0)
+    $stato = 1;
+  else
+    $stato = 0;
 
-// execute statement
-$stmt->execute();
+  $stmt = $conn->prepare("UPDATE prodotti SET inEvid = ? WHERE id = ?");
+  $stmt->bind_param("ii", $stato, $id);
 
-if ($stmt->affected_rows > 0)
+  // execute statement
+  $stmt->execute();
+
+  if ($stmt->affected_rows > 0)
     $msg = 'ok';
-else if ($results == 0)
-    $msg = 'nope';
+  else
+    $msg = 'nope' . $stato;
 
-header('location:carrello.php?msg=' . $msg);
+  header('location:PAMM.php?msg=' . $msg);
+  exit;
+}
 ?>

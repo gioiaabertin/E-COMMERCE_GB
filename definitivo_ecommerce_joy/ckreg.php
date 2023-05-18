@@ -4,6 +4,20 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 }
 include_once 'DatabaseClassSingleton.php';
 
+$fields = ['this_nome', 'this_cognome', 'this_user', 'this_mail', 'this_cell', 'this_pw', 'this_pw2', 'this_ncarta', 'this_scad'];
+$isEmpty = false;
+
+foreach ($fields as $field) {
+    if (empty($_POST[$field])) {
+        $isEmpty = true;
+        break;
+    }
+}
+
+if ($isEmpty) {
+    $msg ="Per favore, completa tutti i campi del modulo.";
+    header("location: registrati.php?msg=".$msg);
+} 
 
 $msg="Utente registrato correttamente";
 
@@ -19,8 +33,8 @@ if ($_POST["this_pw"] == $_POST["this_pw2"]) {
 print_r($results);
 if($result==false) {
     $msg = "inserimento NON avvenuto!";
-    header("location: accedi.php" . ($msg == "" ? "" : "?msg=$msg"));
+    header("location: registrati.php" . ($msg == "" ? "" : "?msg=$msg"));
 } else
-    header("location: index.php".$msg);
+    header("location: index.php?msg=".$msg);
 
 ?>

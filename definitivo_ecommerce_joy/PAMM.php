@@ -23,6 +23,7 @@ else if (isset($_GET["msg"]))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="formato.css">
+    <link rel="stylesheet" href="button.css">
 </head>
 
 <body>
@@ -41,30 +42,6 @@ else if (isset($_GET["msg"]))
             </th>
         </tr>
 
-        <script>
-        $(document).ready(function() {
-            $('input[type="checkbox"]').on('change', function() {
-                var id = $(this).closest('tr').find('a').attr('href').split('=')[1];
-                var checked = $(this).is(':checked');
-
-                $.ajax({
-                    url: 'inEvAmm.php',
-                    method: 'POST',
-                    data: {
-                        id: id,
-                        checked: checked
-                    },
-                    success: function(response) {
-                        // Gestisci la risposta della pagina PHP qui se necessario
-                        console.log(response);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('Errore AJAX:', textStatus, errorThrown);
-                    }
-                });
-            });
-        });
-        </script>
 
         <?php 
         $results = DatabaseClassSingleton::getInstance()->Select("SELECT * FROM prodotti join categorie on idC=idCateg  ");
@@ -77,10 +54,23 @@ else if (isset($_GET["msg"]))
 
         if ($results > 0) {
            foreach ($results as $row) {
-                echo "<tr><th> <a href='profilo.php?id=" . $row["id"] . "'>" . $row["id"] . "</a>" . "</th><th>" . $row["nome"] . 
-                "</th><th>" . $row["descr"] . "</th><th>" . $row["quantitaManc"] . "</th><th>" . $row["nomeC"] . "</th><th>" 
-                . $row["prezzo"] . "</th><th>" . $row["taglie"] . "</th><th><a href='AmmCancP.php?id=".$row['id']."'> X</a> </th>
-                <th> <input type='checkbox' onchange='updateAttribute(" . $row['id'] . ", this.checked)'></th></tr>"; 
+                $id = $row['id']; // Supponiamo che l'ID sia presente nella colonna 'id'
+                $inEvid = $row['inEvid'];
+
+                // Determina la classe CSS in base allo inEvid
+                $inEvidClass = ($inEvid == true) ? 'verde' : 'rosso';
+
+                echo "<tr>
+                        <th><a href='profilo.php?id={$row["id"]}'>{$row["id"]}</a></th>
+                        <th>{$row["nome"]}</th>
+                        <th>{$row["descr"]}</th>
+                        <th>{$row["quantitaManc"]}</th>
+                        <th>{$row["nomeC"]}</th>
+                        <th>{$row["prezzo"]}</th>
+                        <th>{$row["taglie"]}</th>
+                        <th><a href='AmmCancP.php?id={$row['id']}'>X</a></th>
+                        <th><a href='inEvAmm.php?id={$id}&stato={$inEvid}'><button class='pulsante {$inEvidClass}'></button>{$inEvid}</a></th>
+                    </tr>";
 
             }
         }
